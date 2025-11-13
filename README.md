@@ -1,4 +1,4 @@
-# Example how to connect to a Renku session via SSH (via a tunnel)
+# How to connect to a Renku session via SSH (via a tunnel)
 
 The project uses [iroh-ssh](https://github.com/rustonbsd/iroh-ssh) to establish a direct peer to peer tunnel between the Renku session and your machine. You can then login via SSH or connect VSCode directly to the session.
 
@@ -27,7 +27,7 @@ In your Renku project go to `Settings`, then `Session secret slots` and add the 
 
 ### Setup Renku session
 In your Renku project
-- create a new session
+- Create a new session
 - Choose **External environment**
 - Add the following URL to **Container Image** field
 ```
