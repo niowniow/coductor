@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Define source and destination paths
+SOURCE_DIR="/secrets"
+DEST_DIR="$HOME/.ssh"
+
+# --- Ensure .ssh directory exists and is secure ---
+# Create the .ssh directory if it doesn't exist
+mkdir -p "$DEST_DIR"
+# Set strict permissions on the directory
+chmod 700 "$DEST_DIR"
+
+# --- File: authorized_keys ---
+SOURCE_FILE="$SOURCE_DIR/authorized_keys"
+DEST_FILE="$DEST_DIR/authorized_keys"
+
+if [ -f "$SOURCE_FILE" ]; then
+    echo "Found authorized_keys, copying..."
+    cp "$SOURCE_FILE" "$DEST_FILE"
+    chmod 600 "$DEST_FILE"
+else
+    echo "WARNING: No authorized_keys file found at $SOURCE_FILE."
+fi
+
+# --- File: irohssh_ed25519 (Private Key) ---
+SOURCE_FILE="$SOURCE_DIR/irohssh_ed25519"
+DEST_FILE="$DEST_DIR/irohssh_ed25519"
+
+if [ -f "$SOURCE_FILE" ]; then
+    echo "Found irohssh_ed25519 private key, copying..."
+    cp "$SOURCE_FILE" "$DEST_FILE"
+    chmod 600 "$DEST_FILE"
+fi
+
+# --- File: irohssh_ed25519.pub (Public Key) ---
+SOURCE_FILE="$SOURCE_DIR/irohssh_ed25519.pub"
+DEST_FILE="$DEST_DIR/irohssh_ed25519.pub"
+
+if [ -f "$SOURCE_FILE" ]; then
+    echo "Found irohssh_ed25519.pub public key, copying..."
+    cp "$SOURCE_FILE" "$DEST_FILE"
+    chmod 600 "$DEST_FILE"
+fi
+
+echo "SSH secret configuration complete."
+
+echo "Starting sshd service..."
+
+# Start the sshd daemon in the background
+/usr/sbin/sshd -D -f ~/.config/user_sshd/sshd_config &
+
+/usr/local/bin/iroh-ssh server --ssh-port 2222 --persist &
+
+echo "Executing original entrypoint: /cnb/process/vscodium"
+exec /cnb/process/vscodium "$@"
