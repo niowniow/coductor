@@ -3,6 +3,19 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+# Define key paths
+KEY_DIR="/home/renku/.config/user_sshd"
+KEY_FILE="${KEY_DIR}/ssh_host_ed25519_key"
+
+# Check if the host key file is missing
+if [ ! -f "$KEY_FILE" ]; then
+    echo "--- No SSH host keys found, generating new ones... ---"    
+    ssh-keygen -f "$KEY_FILE" -N "" -t ed25519
+    echo "--- Host keys generated. ---"
+else
+    echo "--- Found existing SSH host keys. ---"
+fi
+
 # Define source and destination paths
 SOURCE_DIR="/secrets"
 DEST_DIR="$HOME/.ssh"
@@ -54,5 +67,5 @@ echo "Starting sshd service..."
 
 /usr/local/bin/iroh-ssh server --ssh-port 2222 --persist &
 
-echo "Executing original entrypoint: /cnb/process/vscodium"
-exec /cnb/process/vscodium "$@"
+echo "Executing original entrypoint: /cnb/process/ttyd"
+exec /cnb/process/ttyd "$@"

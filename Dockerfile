@@ -1,4 +1,4 @@
-FROM ghcr.io/swissdatasciencecenter/renku/py-basic-vscodium:2.10.0
+FROM ghcr.io/swissdatasciencecenter/renku/py-basic-ttyd:2.10.0
 
 # 1. Switch to root to install packages
 USER root
@@ -17,9 +17,11 @@ COPY entrypoint-wrapper.sh /entrypoint-wrapper.sh
 RUN chmod +x /entrypoint-wrapper.sh
 
 # 5. Add iroh-ssh for Linux
-RUN wget https://github.com/rustonbsd/iroh-ssh/releases/download/0.2.7/iroh-ssh.linux
-RUN chmod +x iroh-ssh.linux
-RUN mv iroh-ssh.linux /usr/local/bin/iroh-ssh
+ENV IROH_SSH_SHA256="sha256:cbd4055fff9caa3b9513a02b8ab45bf06d81229f6aead843da003168029075ab"
+RUN wget https://github.com/rustonbsd/iroh-ssh/releases/download/0.2.7/iroh-ssh.linux && \
+    echo "${IROH_SSH_SHA256}  iroh-ssh.linux" | sha256sum -c - && \
+    chmod +x iroh-ssh.linux && \
+    mv iroh-ssh.linux /usr/local/bin/iroh-ssh
 
 # 6. Switch to the 'renku' user and configure userspace openssh-server
 USER renku
@@ -28,10 +30,7 @@ USER renku
 RUN mkdir -p /home/renku/.config/user_sshd && \
     chmod 700 /home/renku/.config
 
-# 8. Generate the userspace host keys
-RUN ssh-keygen -f /home/renku/.config/user_sshd/ssh_host_ed25519_key -N "" -t ed25519
-
-# 9. Create the userspace sshd_config file using absolute paths
+# 8. Create the userspace sshd_config file using absolute paths
 RUN printf "%s\n" \
     "Port 2222" \
     "HostKey /home/renku/.config/user_sshd/ssh_host_ed25519_key" \
@@ -42,8 +41,8 @@ RUN printf "%s\n" \
     > /home/renku/.config/user_sshd/sshd_config
 
 
-# 10. Switch back to the original user 
+# 9. Switch back to the original user 
 USER renku
 
-# 11. Set wrapper as the new ENTRYPOINT
+# 10. Set wrapper as the new ENTRYPOINT
 ENTRYPOINT ["/entrypoint-wrapper.sh"]

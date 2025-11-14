@@ -55,7 +55,7 @@ Connect to this this machine:
 The SSH connection changes on every restart of your session. You need to get the above connection id everytime you start the session. In order to always use the same id, we must fetch a persistent key pair from the Renku session and place it in the Renku secrets.
 
 ### Get iroh-ssh keypair
-Use a terminal of the Renku session. Either in VSCodium via browser or using the established SSH connection.
+Use a terminal of the Renku session using the established SSH connection.
 Display the output of the following two files
 
 ```
