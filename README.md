@@ -39,15 +39,21 @@ ghcr.io/niowniow/codev-renku-ssh-image:main
 
 ### Start Renku session and connect via SSH
 - Click the **Launch** button of your new session
-- When the session is ready, click on the **Get Logs** button
-- In the **Amalthea Session** tab you will find an entry like this
+- When the session is ready you can use the terminal of the renku session and type
 ```
-Connect to this this machine:
-
+iroh-ssh info
+```
+- You will find an entry like this
+```
+Your server iroh-ssh nodeid:
   iroh-ssh renku@0a2ccf05a10db63f35f21e7b5aacc6aec45995d06a0b4d40a59a3b5ff02e763c
 ```
-- Copy the iroh-ssh line and paste it into a terminal of your local machine
+- Copy the `iroh-ssh renku@...` line and paste it into a terminal of your local machine
 - You should now be connected via SSH to your session
+
+
+Alternativly, You can also find the connection id in the logs of the Renku session.
+Click on the **Get Logs** button, then select  **Amalthea Session**. The connection string should be at the top.
 
 
 ## Make persistent connection
