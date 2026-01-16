@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     openssh-server \
     openssh-client \
     wget \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # 3. Copy your wrapper script
@@ -23,6 +24,15 @@ RUN wget https://github.com/rustonbsd/iroh-ssh/releases/download/0.2.7/iroh-ssh.
     chmod +x iroh-ssh.linux && \
     mv iroh-ssh.linux /usr/local/bin/iroh-ssh
 
+
+# 5. Add dumbpipe for Linux
+ENV DUMBPIPE_SHA256="a422cf76030d0240891505211297f3f5b6937d20b0329fbc5cccd3a0461f8ace"
+RUN curl -sL https://github.com/n0-computer/dumbpipe/releases/download/v0.33.0/dumbpipe-v0.33.0-linux-x86_64.tar.gz | tar xz && \
+    echo "${DUMBPIPE_SHA256}  dumbpipe" | sha256sum -c - && \
+    chmod +x dumbpipe && \
+    mv dumbpipe /usr/local/bin/dumbpipe
+
+    
 # 6. Switch to the 'renku' user and configure userspace openssh-server
 USER renku
 
