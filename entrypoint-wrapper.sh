@@ -69,7 +69,7 @@ echo "Starting sshd service..."
 
 /usr/local/bin/dumbpipe listen-tcp --host 0.0.0.0:7777 &
 
-ttyd -p 7777 tmux &
+/cnb/process/ttyd -p 7777 -W tmux &
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
 exec /cnb/process/ttyd "$@"
