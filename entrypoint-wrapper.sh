@@ -48,15 +48,15 @@ if [ -f "$SOURCE_FILE" ]; then
     chmod 600 "$DEST_FILE"
 fi
 
-# --- File: irohssh_ed25519.pub (Public Key) ---
-SOURCE_FILE="$SOURCE_DIR/irohssh_ed25519.pub"
-DEST_FILE="$DEST_DIR/irohssh_ed25519.pub"
+# --- File: iroh_secret ---
+SOURCE_FILE="$SOURCE_DIR/iroh_secret"
+DEST_FILE="$DEST_DIR/iroh_secret"
 
 if [ -f "$SOURCE_FILE" ]; then
-    echo "Found irohssh_ed25519.pub public key, copying..."
-    cp "$SOURCE_FILE" "$DEST_FILE"
-    chmod 600 "$DEST_FILE"
+    echo "Found iroh_secret key, setting..."
+    export IROH_SECRET=$(cat "$SOURCE_FILE")
 fi
+
 
 echo "SSH secret configuration complete."
 
@@ -66,6 +66,8 @@ echo "Starting sshd service..."
 /usr/sbin/sshd -D -f ~/.config/user_sshd/sshd_config &
 
 /usr/local/bin/iroh-ssh server --ssh-port 2222 --persist &
+
+/usr/local/bin/dumbpipe listen-tcp --host localhost:8888 &
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
 exec /cnb/process/ttyd "$@"
