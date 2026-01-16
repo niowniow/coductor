@@ -67,7 +67,7 @@ echo "Starting sshd service..."
 
 /usr/local/bin/iroh-ssh server --ssh-port 2222 --persist &
 
-/usr/local/bin/dumbpipe listen-tcp --host localhost:8888 &
+/usr/local/bin/dumbpipe listen-tcp --host 0.0.0.0:8888 &
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
 exec /cnb/process/ttyd "$@"
