@@ -32,6 +32,10 @@ RUN curl -sL https://github.com/n0-computer/dumbpipe/releases/download/v0.33.0/d
     chmod +x dumbpipe && \
     mv dumbpipe /usr/local/bin/dumbpipe
 
+# 5. Add dumbpipe for Linux
+RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 && \
+    chmod +x ttyd.x86_64 && \
+    mv ttyd.x86_64 /usr/local/bin/ttyd-coductor
     
 # 6. Switch to the 'renku' user and configure userspace openssh-server
 USER renku
