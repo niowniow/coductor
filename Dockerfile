@@ -20,6 +20,8 @@ RUN mkdir -p /etc/apt/keyrings && \
 # 3. Install Node.js and Gemini CLI
 RUN apt-get update && apt-get install -y nodejs && \
     npm install -g @google/gemini-cli
+ENV GEMINI_CONFIG_DIR=/home/renku/work/.config/
+
 
 # 3. Copy your wrapper script
 COPY entrypoint-wrapper.sh /entrypoint-wrapper.sh
@@ -63,7 +65,6 @@ RUN printf "%s\n" \
     "AuthorizedKeysFile /home/renku/.ssh/authorized_keys" \
     "UsePAM no" \
     > /home/renku/.config/user_sshd/sshd_config
-
 
 # 9. Switch back to the original user 
 USER renku
