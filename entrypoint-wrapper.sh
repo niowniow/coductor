@@ -94,6 +94,7 @@ echo "Starting sshd service..."
 /usr/local/bin/dumbpipe listen-tcp --host 0.0.0.0:7777 &
 
 #/usr/local/bin/ttyd-coductor -p 7777 -W tmux &
+cd /home/renku/work
 opencode web --port 7777 &
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
