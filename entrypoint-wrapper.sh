@@ -50,12 +50,36 @@ fi
 
 # --- File: iroh_secret ---
 SOURCE_FILE="$SOURCE_DIR/iroh_secret"
-DEST_FILE="$DEST_DIR/iroh_secret"
 
 if [ -f "$SOURCE_FILE" ]; then
     echo "Found iroh_secret key, setting..."
     export IROH_SECRET=$(cat "$SOURCE_FILE")
 fi
+
+DEST_DIR="$HOME/.config/opencode/"
+mkdir -p "$DEST_DIR"
+
+cat <<EOF > "${DEST_DIR}/opencode.json"
+{
+  "\$schema": "https://opencode.ai/config.json",
+  "plugin": ["opencode-gemini-auth@latest"]
+}
+EOF
+
+
+
+DEST_DIR="$HOME/.local/share/opencode/"
+mkdir -p "$DEST_DIR"
+
+# --- File: iroh_secret ---
+SOURCE_FILE="$SOURCE_DIR/opencode_auth"
+DEST_FILE="$DEST_DIR/auth.json"
+
+if [ -f "$SOURCE_FILE" ]; then
+    echo "Found opencode_auth, setting..."
+    cp "$SOURCE_FILE" "$DEST_FILE"
+fi
+
 
 
 echo "SSH secret configuration complete."
