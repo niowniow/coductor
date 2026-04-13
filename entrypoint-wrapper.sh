@@ -80,7 +80,17 @@ if [ -f "$SOURCE_FILE" ]; then
     cp "$SOURCE_FILE" "$DEST_FILE"
 fi
 
+DEST_DIR="$HOME/.pi/agent/"
+mkdir -p "$DEST_DIR"
 
+# --- File: models.json pi ---
+SOURCE_FILE="/models.json"
+DEST_FILE="$DEST_DIR/models.json"
+
+if [ -f "$SOURCE_FILE" ]; then
+    echo "Found opencode_auth, setting..."
+    cp "$SOURCE_FILE" "$DEST_FILE"
+fi
 
 echo "SSH secret configuration complete."
 
