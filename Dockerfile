@@ -31,6 +31,9 @@ COPY entrypoint-wrapper.sh /entrypoint-wrapper.sh
 # 4. Make the script executable
 RUN chmod +x /entrypoint-wrapper.sh
 
+COPY models.json /models.json
+
+
 # 5. Add iroh-ssh for Linux
 ENV IROH_SSH_SHA256="cbd4055fff9caa3b9513a02b8ab45bf06d81229f6aead843da003168029075ab"
 RUN wget https://github.com/rustonbsd/iroh-ssh/releases/download/0.2.7/iroh-ssh.linux && \
