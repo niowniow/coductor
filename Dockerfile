@@ -21,7 +21,8 @@ ENV GEMINI_CONFIG_DIR=/home/renku/work/.config/
 # 3. Install Node.js and Gemini CLI
 RUN apt-get update && apt-get install -y nodejs && \
     npm install -g @google/gemini-cli && \
-    npm install -g opencode-ai
+    npm install -g opencode-ai \
+    npm install -g @mariozechner/pi-coding-agent 
 
 
 # 3. Copy your wrapper script
