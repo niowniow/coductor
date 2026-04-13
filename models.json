@@ -1,0 +1,28 @@
+{
+  "providers": {
+    "vllm": {
+      "baseUrl": "https://vllm-gateway-runai-sharedllm-ralf.inference.compute.datascience.ch/v1",
+      "api": "openai-completions",
+      "apiKey": "!cat /secrets/llmApiKey",
+      "authHeader": true,
+      "models": [
+        {
+          "id": "Qwen/Qwen3.5-35B-A3B-GPTQ-Int4",
+          "reasoning": true,
+          "maxTokens": 16000,
+          "contextWindow": 262144,
+          "input": [
+            "text"
+          ],
+          "authHeader": true,
+          "compat": {
+            "supportsDeveloperRole": false,
+            "supportsReasoningEffort": false,
+            "thinkingFormat": "qwen"
+          }
+        }
+      ]
+    }
+  },
+  "lastChangelogVersion": "0.65.2"
+}
