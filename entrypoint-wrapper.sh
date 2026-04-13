@@ -71,13 +71,15 @@ EOF
 DEST_DIR="$HOME/.local/share/opencode/"
 mkdir -p "$DEST_DIR"
 
-# --- File: iroh_secret ---
+# --- File: opencode_auth ---
 SOURCE_FILE="$SOURCE_DIR/opencode_auth"
 DEST_FILE="$DEST_DIR/auth.json"
 
 if [ -f "$SOURCE_FILE" ]; then
-    echo "Found opencode_auth, setting..."
+    echo "Found opencode_auth, copying to $DEST_FILE..."
     cp "$SOURCE_FILE" "$DEST_FILE"
+else
+    echo "WARNING: No opencode_auth file found at $SOURCE_FILE. Opencode auth will not be configured."
 fi
 
 DEST_DIR="$HOME/.pi/agent/"
@@ -88,8 +90,10 @@ SOURCE_FILE="/models.json"
 DEST_FILE="$DEST_DIR/models.json"
 
 if [ -f "$SOURCE_FILE" ]; then
-    echo "Found opencode_auth, setting..."
+    echo "Found models.json, copying to $DEST_FILE..."
     cp "$SOURCE_FILE" "$DEST_FILE"
+else
+    echo "WARNING: No models.json file found at $SOURCE_FILE. pi agent models will not be configured."
 fi
 
 echo "SSH secret configuration complete."
@@ -100,12 +104,6 @@ echo "Starting sshd service..."
 /usr/sbin/sshd -D -f ~/.config/user_sshd/sshd_config &
 
 /usr/local/bin/iroh-ssh server --ssh-port 2222 --persist &
-
-/usr/local/bin/dumbpipe listen-tcp --host 0.0.0.0:7777 &
-
-#/usr/local/bin/ttyd-coductor -p 7777 -W tmux &
-cd /home/renku/work
-opencode web --port 7777 &
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
 exec /cnb/process/ttyd "$@"
