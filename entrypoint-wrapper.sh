@@ -106,7 +106,7 @@ echo "Starting sshd service..."
 /usr/local/bin/iroh-ssh server --ssh-port 2222 --persist &
 
 # Set PI_CODING_AGENT_DIR to store pi config in /home/renku/work
-export PI_CODING_AGENT_DIR=/home/renku/work/.pi
+export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
 exec /cnb/process/ttyd "$@"
