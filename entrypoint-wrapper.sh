@@ -82,7 +82,7 @@ else
     echo "WARNING: No opencode_auth file found at $SOURCE_FILE. Opencode auth will not be configured."
 fi
 
-DEST_DIR="$HOME/.pi/agent/"
+DEST_DIR="/home/renku/work/.pi/agent"
 mkdir -p "$DEST_DIR"
 
 # --- File: models.json pi ---
@@ -104,6 +104,9 @@ echo "Starting sshd service..."
 /usr/sbin/sshd -D -f ~/.config/user_sshd/sshd_config &
 
 /usr/local/bin/iroh-ssh server --ssh-port 2222 --persist &
+
+# Set PI_CODING_AGENT_DIR to store pi config in /home/renku/work
+export PI_CODING_AGENT_DIR=/home/renku/work/.pi
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
 exec /cnb/process/ttyd "$@"
