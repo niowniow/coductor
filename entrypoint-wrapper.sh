@@ -3,6 +3,9 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+
+
 # Define key paths
 KEY_DIR="/home/renku/.config/user_sshd"
 SSH_SERVER_KEY_FILE="${KEY_DIR}/ssh_host_ed25519_key"
