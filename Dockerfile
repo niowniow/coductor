@@ -60,7 +60,7 @@ RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 && 
 RUN python3 -m ensurepip --upgrade || { apt-get update && apt-get install -y python3-pip; }
 
 # 6. Install pyocli Python package
-RUN python3 -m pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+RUN python3 -m pip --break-system-packages install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
 
 # Copy ocli-login Python script
