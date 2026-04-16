@@ -80,6 +80,9 @@ RUN printf "%s\n" \
 # 9. Switch back to the original user 
 USER renku
 
+# 6. Install pip (for systems that don't have it)
+RUN python3 -m ensurepip --upgrade || { apt-get update && apt-get install -y python3-pip; }
+
 # 6. Install pyocli Python package
 RUN python3 -m pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
