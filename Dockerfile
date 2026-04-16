@@ -1,4 +1,4 @@
-FROM ghcr.io/swissdatasciencecenter/renku/py-basic-ttyd:2.10.0
+FROM ghcr.io/swissdatasciencecenter/renku/py-basic-ttyd:2.16.0
 
 # 1. Switch to root to install packages
 USER root
