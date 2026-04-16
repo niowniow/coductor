@@ -48,12 +48,14 @@ if [ -f "$SOURCE_FILE" ]; then
     chmod 600 "$DEST_FILE"
 fi
 
-# --- File: iroh_secret ---
-SOURCE_FILE="$SOURCE_DIR/iroh_secret"
+# --- File: irohssh_ed25519 (Public Key) ---
+SOURCE_FILE="$SOURCE_DIR/irohssh_ed25519.pub"
+DEST_FILE="$DEST_DIR/irohssh_ed25519.pub"
 
 if [ -f "$SOURCE_FILE" ]; then
-    echo "Found iroh_secret key, setting..."
-    export IROH_SECRET=$(cat "$SOURCE_FILE")
+    echo "Found irohssh_ed25519.pub private key, copying..."
+    cp "$SOURCE_FILE" "$DEST_FILE"
+    chmod 600 "$DEST_FILE"
 fi
 
 DEST_DIR="$HOME/.config/opencode/"
@@ -65,7 +67,6 @@ cat <<EOF > "${DEST_DIR}/opencode.json"
   "plugin": ["opencode-gemini-auth@latest"]
 }
 EOF
-
 
 
 DEST_DIR="$HOME/.local/share/opencode/"
