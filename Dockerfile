@@ -50,13 +50,6 @@ RUN curl -sL https://github.com/n0-computer/dumbpipe/releases/download/v0.33.0/d
     mv dumbpipe /usr/local/bin/dumbpipe
 
 
-# 6. Install pip (for systems that don't have it)
-RUN python3 -m ensurepip --upgrade || { apt-get update && apt-get install -y python3-pip; }
-
-# 6. Install pyocli Python package
-RUN python3 -m pip install --break-system-packages https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-
-
 # Copy ocli-login Python script
 COPY ocli-login.py /usr/local/bin/ocli-login
 RUN chmod +x /usr/local/bin/ocli-login
