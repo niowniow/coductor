@@ -116,8 +116,7 @@ export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent
 # Write PI_CODING_AGENT_DIR to .bashrc so it's available in SSH sessions
 echo "export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent" >> ~/.bashrc
 
-source /home/renku/work/.venv/bin/activate
-pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+echo "source /home/renku/work/.venv/bin/activate && pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl" >> ~/.bashrc
 
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
