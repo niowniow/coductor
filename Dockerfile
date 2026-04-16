@@ -56,9 +56,6 @@ RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 && 
     chmod +x ttyd.x86_64 && \
     mv ttyd.x86_64 /usr/local/bin/ttyd-coductor
 
-# 6. Install pyocli Python package
-RUN pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-
 # Copy ocli-login Python script
 COPY ocli-login.py /usr/local/bin/ocli-login
 RUN chmod +x /usr/local/bin/ocli-login
@@ -82,6 +79,10 @@ RUN printf "%s\n" \
 
 # 9. Switch back to the original user 
 USER renku
+
+# 6. Install pyocli Python package
+RUN pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+
 
 # 10. Set wrapper as the new ENTRYPOINT
 ENTRYPOINT ["/entrypoint-wrapper.sh"]
