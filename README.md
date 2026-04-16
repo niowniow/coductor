@@ -31,7 +31,7 @@ In your Renku project
 - Choose **External environment**
 - Add the following URL to **Container Image** field
 ```
-ghcr.io/niowniow/codev-renku-ssh-image:main
+ghcr.io/niowniow/coductor:main
 ```
 - Click **Next**
 - Choose a session name and click **Add session launcher**
