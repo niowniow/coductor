@@ -49,6 +49,13 @@ RUN curl -sL https://github.com/n0-computer/dumbpipe/releases/download/v0.33.0/d
     chmod +x dumbpipe && \
     mv dumbpipe /usr/local/bin/dumbpipe
 
+# 6. Add ocli (oculus CLI) for Linux
+RUN wget https://github.com/SwissDataScienceCenter/ocli/releases/download/untagged-4629ab0c33fb85fb44ab/ocli-linux-x86_64.zip && \
+    unzip ocli-linux-x86_64.zip && \
+    chmod +x ocli && \
+    mv ocli /usr/local/bin/ocli && \
+    rm ocli-linux-x86_64.zip
+
 # 5. Add dumbpipe for Linux
 RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 && \
     chmod +x ttyd.x86_64 && \
