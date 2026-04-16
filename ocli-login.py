@@ -6,6 +6,7 @@ with the OIDC provider and obtain an access token.
 """
 
 import sys
+import os
 from pyocli import start_device_code_flow, finish_device_code_flow
 
 # OIDC configuration
@@ -29,6 +30,14 @@ def main():
         
         print("Successfully obtained access token")
         print(f"Access token: {token.access_token}")
+        
+        # Store the token in ~/.keys/llmApiKey
+        token_path = "/home/renku/.keys/llmApiKey"
+        token_dir = os.path.dirname(token_path)
+        os.makedirs(token_dir, exist_ok=True)
+        with open(token_path, "w") as f:
+            f.write(token.access_token)
+        print(f"Token stored in {token_path}")
         return 0
         
     except KeyboardInterrupt:
