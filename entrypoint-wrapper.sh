@@ -5,16 +5,8 @@ set -e
 
 # Define key paths
 KEY_DIR="/home/renku/.config/user_sshd"
-KEY_FILE="${KEY_DIR}/ssh_host_ed25519_key"
+SSH_SERVER_KEY_FILE="${KEY_DIR}/ssh_host_ed25519_key"
 
-# Check if the host key file is missing
-if [ ! -f "$KEY_FILE" ]; then
-    echo "--- No SSH host keys found, generating new ones... ---"    
-    ssh-keygen -f "$KEY_FILE" -N "" -t ed25519
-    echo "--- Host keys generated. ---"
-else
-    echo "--- Found existing SSH host keys. ---"
-fi
 
 # Define source and destination paths
 SOURCE_DIR="/secrets"
@@ -25,6 +17,19 @@ DEST_DIR="$HOME/.ssh"
 mkdir -p "$DEST_DIR"
 # Set strict permissions on the directory
 chmod 700 "$DEST_DIR"
+
+
+# --- File: ssh_host_ed25519_key ---
+SOURCE_FILE="$SOURCE_DIR/ssh_host_ed25519_key"
+DEST_FILE="$DEST_DIR/ssh_host_ed25519_key"
+
+if [ -f "$SOURCE_FILE" ]; then
+    echo "Found ssh_host_ed25519_key, copying..."
+    cp "$SOURCE_FILE" "$DEST_FILE"
+    chmod 600 "$DEST_FILE"
+else
+    echo "WARNING: No ssh_host_ed25519_key file found at $SOURCE_FILE."
+fi
 
 # --- File: authorized_keys ---
 SOURCE_FILE="$SOURCE_DIR/authorized_keys"
@@ -58,31 +63,6 @@ if [ -f "$SOURCE_FILE" ]; then
     chmod 600 "$DEST_FILE"
 fi
 
-DEST_DIR="$HOME/.config/opencode/"
-mkdir -p "$DEST_DIR"
-
-cat <<EOF > "${DEST_DIR}/opencode.json"
-{
-  "\$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-gemini-auth@latest"]
-}
-EOF
-
-
-DEST_DIR="$HOME/.local/share/opencode/"
-mkdir -p "$DEST_DIR"
-
-# --- File: opencode_auth ---
-SOURCE_FILE="$SOURCE_DIR/opencode_auth"
-DEST_FILE="$DEST_DIR/auth.json"
-
-if [ -f "$SOURCE_FILE" ]; then
-    echo "Found opencode_auth, copying to $DEST_FILE..."
-    cp "$SOURCE_FILE" "$DEST_FILE"
-else
-    echo "WARNING: No opencode_auth file found at $SOURCE_FILE. Opencode auth will not be configured."
-fi
-
 DEST_DIR="/home/renku/work/.pi/agent"
 mkdir -p "$DEST_DIR"
 
@@ -97,6 +77,16 @@ else
     echo "WARNING: No models.json file found at $SOURCE_FILE. pi agent models will not be configured."
 fi
 
+
+# Check if the host key file is missing
+if [ ! -f "$SSH_SERVER_KEY_FILE" ]; then
+    echo "--- No SSH host keys found, generating new ones... ---"    
+    ssh-keygen -f "$SSH_SERVER_KEY_FILE" -N "" -t ed25519
+    echo "--- Host keys generated. ---"
+else
+    echo "--- Found existing SSH host keys. ---"
+fi
+
 echo "SSH secret configuration complete."
 
 echo "Starting sshd service..."
@@ -108,6 +98,9 @@ echo "Starting sshd service..."
 
 # Set PI_CODING_AGENT_DIR to store pi config in /home/renku/work
 export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent
+
+# Write PI_CODING_AGENT_DIR to .bashrc so it's available in SSH sessions
+echo "export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent" >> ~/.bashrc
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
 exec /cnb/process/ttyd "$@"
