@@ -58,7 +58,21 @@ SOURCE_FILE="$SOURCE_DIR/irohssh_ed25519.pub"
 DEST_FILE="$DEST_DIR/irohssh_ed25519.pub"
 
 if [ -f "$SOURCE_FILE" ]; then
-    echo "Found irohssh_ed25519.pub private key, copying..."
+    echo "Found irohssh_ed25519.pub public key, copying..."
+    cp "$SOURCE_FILE" "$DEST_FILE"
+    chmod 600 "$DEST_FILE"
+fi
+
+
+DEST_DIR="$HOME/.keys/"
+mkdir -p "$DEST_DIR"
+
+# --- File: llmApiKey  ---
+SOURCE_FILE="$SOURCE_DIR/llmApiKey"
+DEST_FILE="$DEST_DIR/llmApiKey"
+
+if [ -f "$SOURCE_FILE" ]; then
+    echo "Found llmApiKey , copying..."
     cp "$SOURCE_FILE" "$DEST_FILE"
     chmod 600 "$DEST_FILE"
 fi

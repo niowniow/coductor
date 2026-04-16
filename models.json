@@ -3,7 +3,7 @@
     "vllm": {
       "baseUrl": "https://vllm-gateway-runai-sharedllm-ralf.inference.compute.datascience.ch/v1",
       "api": "openai-completions",
-      "apiKey": "!cat /secrets/llmApiKey",
+      "apiKey": "!cat /home/renku/.keys/llmApiKey",
       "authHeader": true,
       "models": [
         {
