@@ -81,7 +81,7 @@ RUN printf "%s\n" \
 USER renku
 
 # 6. Install pyocli Python package
-RUN pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+RUN python3 -m pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
 
 # 10. Set wrapper as the new ENTRYPOINT
