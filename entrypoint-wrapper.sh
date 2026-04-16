@@ -3,9 +3,6 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-
-
 # Define key paths
 KEY_DIR="/home/renku/.config/user_sshd"
 SSH_SERVER_KEY_FILE="${KEY_DIR}/ssh_host_ed25519_key"
@@ -118,6 +115,9 @@ export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent
 
 # Write PI_CODING_AGENT_DIR to .bashrc so it's available in SSH sessions
 echo "export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent" >> ~/.bashrc
+
+/home/renku/work/.venv/bin/pip install https://github.com/SwissDataScienceCenter/ocli/releases/download/v0.1.0/pyocli-0.1.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+
 
 echo "Executing original entrypoint: /cnb/process/ttyd"
 exec /cnb/process/ttyd "$@"
