@@ -1,0 +1,27 @@
+schema-version = "0.2"
+name = "Coductor"
+id = "coductor"
+authors = [
+    "Matthias Meyer <Matthias.Meyer@sdsc.ethz.ch>"
+]
+source-url = "https://github.com/niowniow/coductor.git"
+documentation-url = "https://github.com/niowniow/coductor"
+[[_.licenses]]
+type = "Apache-2.0"
+
+[io.buildpacks]
+include = [
+    "init.d/",
+    "ocli-login.py",
+    "poetry.lock",
+    "project.toml",
+    "pyproject.toml",
+    "models.json"
+]
+
+[com.heroku.buildpacks.deb-packages]
+install = [
+    "openssh-server",
+    "openssh-client",
+    "nodejs"
+]
