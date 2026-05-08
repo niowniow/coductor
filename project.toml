@@ -23,5 +23,6 @@ include = [
 install = [
     "openssh-server",
     "openssh-client",
-    "nodejs"
+    "nodejs",
+    "npm"
 ]
