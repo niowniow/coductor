@@ -33,13 +33,6 @@ if [ -f "${HOST_KEY_FILE_SECRET}" ]; then
     echo "" >> "${HOST_KEY_FILE}"  # Make sure the host key file ends with an empty line
     chmod 600 "${HOST_KEY_FILE}"
     echo "Using SSH host key from secrets"
-else
-    echo "No SSH host key found in secrets, generating a new one..."
-    ssh-keygen -f "${HOST_KEY_FILE}" -N "" -t ed25519 -y
-    echo "Generated new SSH host key"
-fi
-
-HOST_KEY_FINGERPRINT="$(ssh-keygen -lf "${HOST_KEY_FILE}")"
 
 # Step 3: Setup authorized_keys for SSH
 AUTHORIZED_KEYS_FILE="${SSH_FOLDER}/authorized_keys"
@@ -147,8 +140,6 @@ fi
 # Step 10: Print instructions
 SSH_INSTRUCTIONS_FILE="${RENKU_WORKING_DIR}/ssh_instructions.md"
 echo "# SSH instructions" > "${SSH_INSTRUCTIONS_FILE}"
-echo "" >> "${SSH_INSTRUCTIONS_FILE}"
-echo "Host key fingerprint: ${HOST_KEY_FINGERPRINT}" | tee -a "${SSH_INSTRUCTIONS_FILE}"
 echo "" >> "${SSH_INSTRUCTIONS_FILE}"
 echo "To start iroh-ssh, run:"  | tee -a "${SSH_INSTRUCTIONS_FILE}"
 echo "  ${IROH_SSH_BIN} server --persist --ssh-port 2222" | tee -a "${SSH_INSTRUCTIONS_FILE}"
