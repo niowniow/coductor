@@ -31,7 +31,7 @@ if [ -f "${HOST_KEY_FILE_SECRET}" ]; then
     echo "Using SSH host key from secrets"
 else
     echo "No SSH host key found in secrets, generating a new one..."
-    ssh-keygen -f "${HOST_KEY_FILE}" -N "" -t ed25519
+    ssh-keygen -f "${HOST_KEY_FILE}" -N "" -t ed25519 -q -y
     echo "Generated new SSH host key"
 fi
 
