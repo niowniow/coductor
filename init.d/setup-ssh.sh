@@ -33,6 +33,7 @@ if [ -f "${HOST_KEY_FILE_SECRET}" ]; then
     echo "" >> "${HOST_KEY_FILE}"  # Make sure the host key file ends with an empty line
     chmod 600 "${HOST_KEY_FILE}"
     echo "Using SSH host key from secrets"
+fi
 
 # Step 3: Setup authorized_keys for SSH
 AUTHORIZED_KEYS_FILE="${SSH_FOLDER}/authorized_keys"
