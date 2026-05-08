@@ -9,7 +9,7 @@ if [ -z "${RENKU_SECRETS_PATH:-}" ]; then
     exit 0
 fi
 
-SSH_FOLDER="${RENKU_MOUNT_DIR}/.ssh"
+SSH_FOLDER="${HOME}/.ssh"
 KEYS_FOLDER="${RENKU_MOUNT_DIR}/.keys"
 PI_AGENT_DIR="${RENKU_WORKING_DIR}/.pi/agent"
 
