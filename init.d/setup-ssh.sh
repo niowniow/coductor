@@ -129,7 +129,7 @@ fi
 # Set PI_CODING_AGENT_DIR so it persists in sessions
 echo "export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent" >> ~/.bashrc
 
-cp /workspace/source/ocli-login.py /usr/local/bin/ocli-login
+cp /workspace/source/ocli-login.py $RENKU_WORKING_DIR/.local/bin/ocli-login
 chmod +x /usr/local/bin/ocli-login
 
 # Step 9: Setup ocli token from secrets
