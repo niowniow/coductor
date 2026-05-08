@@ -68,7 +68,7 @@ echo "Started sshd daemon"
 BIN_FOLDER="${RENKU_MOUNT_DIR}/.local/bin"
 IROH_SSH_BIN="${BIN_FOLDER}/iroh-ssh"
 IROH_SSH_VERSION="0.2.10"
-IROH_SSH_SHA256="cbd4055fff9caa3b9513a02b8ab45bf06d81229f6aead843da003168029075ab"
+IROH_SSH_SHA256="2e8edc7d0868754486dc32052ce32aa67271729fd91c83c544a3e1ec4a06a7f1"
 
 if [ -x "${IROH_SSH_BIN}" ]; then
     echo "Executable ${IROH_SSH_BIN} already present, skipping download"
@@ -95,6 +95,14 @@ if [ -f "${IROH_PRIVATE_KEY_SECRET}" ] && [ -f "${IROH_PUBLIC_KEY_SECRET}" ]; th
     chmod 600 "${IROH_PUBLIC_KEY}"
     echo "Using persistent iroh-ssh keys from secrets"
 fi
+
+
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+# Download and install Node.js:
+nvm install 24
 
 # Step 8: Install pi coding agent
 if ! command -v pi &> /dev/null; then
