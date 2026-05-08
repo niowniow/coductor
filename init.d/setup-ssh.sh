@@ -115,7 +115,7 @@ fi
 
 # Step 9: Setup pi coding agent model configuration
 mkdir -p "${PI_AGENT_DIR}"
-MODELS_JSON="/models.json"
+MODELS_JSON="/workspace/source/models.json"
 PI_MODELS_FILE="${PI_AGENT_DIR}/models.json"
 
 if [ -f "${MODELS_JSON}" ]; then
@@ -127,6 +127,9 @@ fi
 
 # Set PI_CODING_AGENT_DIR so it persists in sessions
 echo "export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent" >> ~/.bashrc
+
+cp /workspace/source/ocli-login.py /usr/local/bin/ocli-login
+chmod +x /usr/local/bin/ocli-login
 
 # Step 9: Setup ocli token from secrets
 LLOCM_API_KEY_SECRET="${RENKU_SECRETS_PATH}/llmApiKey"
