@@ -130,7 +130,7 @@ fi
 echo "export PI_CODING_AGENT_DIR=/home/renku/work/.pi/agent" >> ~/.bashrc
 
 cp /workspace/source/ocli-login.py $RENKU_WORKING_DIR/.local/bin/ocli-login
-chmod +x /usr/local/bin/ocli-login
+chmod +x $RENKU_WORKING_DIR/.local/bin/ocli-login
 
 # Step 9: Setup ocli token from secrets
 LLOCM_API_KEY_SECRET="${RENKU_SECRETS_PATH}/llmApiKey"
