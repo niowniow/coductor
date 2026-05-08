@@ -9,6 +9,7 @@ fi
 SSH_FOLDER="${HOME}/.ssh"
 KEYS_FOLDER="${RENKU_MOUNT_DIR}/.keys"
 PI_AGENT_DIR="${RENKU_WORKING_DIR}/.pi/agent"
+echo 'export PATH="$RENKU_WORKING_DIR/.local/bin:$PATH"' >> ~/.bashrc
 
 # Step 1: Setup SSH directory structure
 mkdir -p "${SSH_FOLDER}"
