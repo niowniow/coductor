@@ -20,9 +20,13 @@ chmod 700 "${SSH_FOLDER}"
 mkdir -p "${KEYS_FOLDER}"
 chmod 700 "${KEYS_FOLDER}"
 
+
 # Step 2: Setup SSH host key
 HOST_KEY_FILE_SECRET="${RENKU_SECRETS_PATH}/ssh_host_ed25519_key"
 HOST_KEY_FILE="${SSH_FOLDER}/ssh_host_ed25519_key"
+
+echo ${RENKU_WORKING_DIR}
+echo ${HOST_KEY_FILE} 
 
 if [ -f "${HOST_KEY_FILE_SECRET}" ]; then
     cp "${HOST_KEY_FILE_SECRET}" "${HOST_KEY_FILE}"
@@ -31,7 +35,7 @@ if [ -f "${HOST_KEY_FILE_SECRET}" ]; then
     echo "Using SSH host key from secrets"
 else
     echo "No SSH host key found in secrets, generating a new one..."
-    ssh-keygen -f "${HOST_KEY_FILE}" -N "" -t ed25519 -q -y
+    ssh-keygen -f "${HOST_KEY_FILE}" -N "" -t ed25519 -y
     echo "Generated new SSH host key"
 fi
 
