@@ -42,12 +42,7 @@ AUTHORIZED_KEYS_FILE_SECRET="${RENKU_SECRETS_PATH}/authorized_keys"
 if [ -f "${AUTHORIZED_KEYS_FILE_SECRET}" ]; then
     cat "${AUTHORIZED_KEYS_FILE_SECRET}" > "${AUTHORIZED_KEYS_FILE}"
     echo "Populated ${AUTHORIZED_KEYS_FILE} from secrets"
-else
-    echo "WARNING: authorized keys file not found in secrets"
-    echo "WARNING: the user has to manually add their public key to ${AUTHORIZED_KEYS_FILE}"
-    touch "${AUTHORIZED_KEYS_FILE}"
 fi
-chmod 600 "${AUTHORIZED_KEYS_FILE}"
 
 # Step 4: Setup sshd_config
 SSHD_CONFIG="${SSH_FOLDER}/sshd_config"
