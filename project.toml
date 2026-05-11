@@ -24,5 +24,8 @@ install = [
     "openssh-server",
     "openssh-client",
     "nodejs",
-    "npm"
+    "npm",
+    "socat",
+    "bubblewrap",
+    "ripgrep"
 ]
